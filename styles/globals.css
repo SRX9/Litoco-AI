@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.RSPBprogressBar {
+  width: 100%;
+}
