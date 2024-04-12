@@ -90,13 +90,13 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
           }}
         >
           <div className="text-left mb-6 relative">
-            <div className=" w-full  flex justify-end ">
+            <div className=" w-full  flex justify-between pb-4 ">
               <img
                 width="48"
                 height="48"
                 src="https://img.icons8.com/sf-regular-filled/48/linkedin.png"
                 alt="linkedin"
-                className=""
+                className=" ml-[-7px] mt-[-7px]  "
               />
             </div>
             <MemoizedReactMarkdown
@@ -131,7 +131,7 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({
           )}
           <img
             src={imageThumbnailURL}
-            className={"w-full max-h-[400px] h-auto object-cover"}
+            className={"w-full max-h-[400px] h-auto object-cover rounded-lg "}
           />
         </div>
       )}

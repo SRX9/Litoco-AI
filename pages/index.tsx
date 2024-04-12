@@ -19,8 +19,8 @@ const Home: NextPage = () => {
   const [imageURL, setImageURL] = useState<string>("");
 
   return (
-    <div className="flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen ">
-      <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-20 mb-4 sm:mt-20">
+    <div className="flex max-w-2xl mx-auto flex-col items-center justify-center py-2 min-h-screen ">
+      <main className="flex flex-1 w-full z-[9999]   flex-col items-center justify-center text-center px-4 mt-20 mb-4 sm:mt-20">
         <div className="rounded-2xl py-1 px-4 mx-20 bg-white border-0 shadow-md  text-sm mb-5 hover:scale-105 transition duration-300 ease-in-out">
           Link To Content
         </div>

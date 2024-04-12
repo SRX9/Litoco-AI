@@ -28,7 +28,7 @@ export default function Footer() {
           </svg>
         </Link>
         <Link
-          href="https://github.com/srx9/liticio"
+          href="https://github.com/SRX9/Litoco-AI"
           className="group"
           aria-label="TaxPal on GitHub"
         >

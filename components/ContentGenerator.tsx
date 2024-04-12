@@ -50,16 +50,22 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({
     setStepPercent(100);
   };
 
+  const resetResultStates = () => {
+    setGeneratedContent("");
+    setHeaderImagePrompt("");
+    setNotEnoughContent("");
+    setImageURL("");
+    setStepPercent(0);
+  };
+
   const generateContent = async (e: any) => {
     e.preventDefault();
     try {
-      setGeneratedContent("");
-      setHeaderImagePrompt("");
-      setGeneratedContent("");
-      setNotEnoughContent("");
-      setImageURL("");
+      if (!url) {
+        return;
+      }
+      resetResultStates();
       setLoading(true);
-      setStepPercent(0);
 
       // Start Timer
       loadingStepCounter();
@@ -118,51 +124,56 @@ const ContentGenerator: React.FC<ContentGeneratorProps> = ({
           Select the type of content you want.
         </div>
       </div>
-      <div className="block mt-4">
-        <DropDownContentType
-          selected={type}
-          setSelected={(newType) => {
-            setType(newType as ContentType);
-            setGeneratedContent("");
-            setHeaderImagePrompt("");
-            setGeneratedContent("");
-            setImageURL("");
-          }}
-          options={contentTypes}
-          label={(option) => option}
-        />
+      <form onSubmit={generateContent}>
+        <div className="block mt-4">
+          <DropDownContentType
+            selected={type}
+            setSelected={(newType) => {
+              if (loading) {
+                return;
+              }
+              setUrl("");
+              setType(newType as ContentType);
+              setLoading(false);
+              resetResultStates();
+            }}
+            options={contentTypes}
+            label={(option) => option}
+          />
+          <input
+            value={behavior}
+            type="text"
+            maxLength={200}
+            onChange={(e) => setBehavior(e.target.value)}
+            className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black mt-3 mb-5"
+            placeholder="(Optional) Desired content creation tone (e.g., Pirate in drunk style)"
+          />
+        </div>
+        <div className="flex mt-8 items-center space-x-3">
+          <Image src="/2-black.png" width={30} height={30} alt="2 icon" />
+          <p className="text-left font-medium">
+            Enter the URL of the blog post or YouTube video.
+          </p>
+        </div>
         <input
-          value={behavior}
-          type="text"
-          maxLength={200}
-          onChange={(e) => setBehavior(e.target.value)}
+          value={url}
+          type="url"
+          required
+          maxLength={500}
+          onChange={(e) => setUrl(e.target.value)}
           className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black mt-3 mb-5"
-          placeholder="(Optional) Desired content creation tone (e.g., Pirate in drunk style)"
+          placeholder={"Link of Any Blog, Youtube Video or Article"}
         />
-      </div>
-      <div className="flex mt-8 items-center space-x-3">
-        <Image src="/2-black.png" width={30} height={30} alt="2 icon" />
-        <p className="text-left font-medium">
-          Enter the URL of the blog post or YouTube video.
-        </p>
-      </div>
-      <input
-        value={url}
-        type="url"
-        maxLength={500}
-        onChange={(e) => setUrl(e.target.value)}
-        className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black mt-3 mb-5"
-        placeholder={"Link of Any Blog, Youtube Video or Article"}
-      />
 
-      {!loading && (
-        <button
-          className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-3 mt-3 hover:bg-black/80 w-full"
-          onClick={(e) => generateContent(e)}
-        >
-          Generate Content &rarr;
-        </button>
-      )}
+        {!loading && (
+          <button
+            className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-3 mt-3 hover:bg-black/80 w-full"
+            type="submit"
+          >
+            Generate Content &rarr;
+          </button>
+        )}
+      </form>
       {loading && (
         <div className="pt-4 w-full  px-5 mt-10 items-center gap-3 justify-center">
           <ProgressBar
